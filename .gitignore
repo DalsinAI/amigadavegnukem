@@ -20,3 +20,7 @@
 davegnukem
 src/*.o
 src/sdl/*.o
+
+# AmigaOS 3 port: the build tree and the packaged drawer (make -f amiga/Makefile.amigaos)
+/build/
+/dist/

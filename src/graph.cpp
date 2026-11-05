@@ -163,8 +163,15 @@ void djGraphicsSystem::ToggleFullscreen()
 #endif
 }
 
+#ifdef __amigaos__
+extern "C" void amiga_screens_snapshot(void);
+extern "C" void amiga_screens_close_leftovers(void);
+#endif
 bool djSDLInit()
 {
+#ifdef __amigaos__
+	amiga_screens_snapshot();	// see amiga/amiga_screens.c
+#endif
 	// Initialize graphics library
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -180,6 +187,9 @@ bool djSDLDone()
 #endif
 
 	SDL_Quit();
+#ifdef __amigaos__
+	amiga_screens_close_leftovers();	// what SDL2.module leaves open
+#endif
 	return true;
 }
 
@@ -225,6 +235,10 @@ bool djGraphicsSystem::GraphInit( bool bFullScreen, int iWidth, int iHeight, int
 		if (max_w>iWidth && max_h>iHeight)
 		{
 			int nMultiple = djMAX(1, djMIN( max_w / iWidth, max_h / iHeight ) );
+#ifdef __amigaos__
+			// Amiga: at most a 640x400 window by default; every extra pixel is scaled on the 68k ("-scale n" still goes up to twice this)
+			nMultiple = djMIN(nMultiple, 2);
+#endif
 			// If a forced scale factor has been passed in by commandline, try use that
 			// what happens if pass in ginormous value? crash .. so limit to make 'not too big' e.g. nMultiple*2 max?
 			if (nForceScale>=1)

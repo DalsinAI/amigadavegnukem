@@ -135,7 +135,7 @@ void djAppendPath(char* szPath,const char* szAppend)
 	if (strlen(szPath)>0)
 	{
 		char cLast = szPath[ strlen(szPath)-1 ];
-		if (cLast!='/' && cLast!='\\')
+		if (cLast!='/' && cLast!='\\' && cLast!=':')// ':' ends an Amiga volume or assign
 		{
 			strcat(szPath,"/");
 		}
@@ -151,7 +151,7 @@ void djAppendPathS(std::string& sPath,const char* szAppend)
 	if (!sPath.empty())
 	{
 		char cLast = sPath.at( sPath.length()-1 );
-		if (cLast!='/' && cLast!='\\')
+		if (cLast!='/' && cLast!='\\' && cLast!=':')// ':' ends an Amiga volume or assign
 		{
 			//strcat(szPath,"/");
 			sPath += L'/';
@@ -198,6 +198,13 @@ bool djEnsureFolderTreeExists(const char* szPath)
 bool djFolderExists(const char* szPath)
 {
 	struct stat sb;
+#ifdef __amigaos__
+	// AmigaDOS: "PROGDIR:data/" names the same drawer as "PROGDIR:data"; ask without the slash
+	std::string sPath = szPath;
+	if (sPath.length() > 1 && sPath.back() == '/' && sPath[sPath.length()-2] != ':' && sPath[sPath.length()-2] != '/')
+		sPath.pop_back();
+	szPath = sPath.c_str();
+#endif
 	if (stat(szPath, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		return true;
@@ -286,6 +293,9 @@ std::string djGetFolderUserSettings()
 #ifdef WIN32
 	std::string s = getenv("APPDATA");
 	djAppendPathS(s, "DaveGnukem");
+#elif defined(__amigaos__)
+	// Amiga port: settings, saves, high scores and logs live in the drawer
+	std::string s = "PROGDIR:userdata";
 #else
 	std::string s = getenv("HOME");
 	djAppendPathS(s, ".gnukem");//?
