@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\../..\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>DaveGnukem</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\../..\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>DaveGnukem</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;VISUALC6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\vcDave.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\../..\vcDave.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>Release\vcDave.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>../../DaveGnukem.exe</OutputFile>
+      <AdditionalDependencies>SDL2.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;VISUALC6;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\vcDave.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\../..\vcDave.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>Debug/vcDave.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>../../DaveGnukem.exe</OutputFile>
+      <AdditionalDependencies>SDL2d.lib;SDL2_mixerd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\console.cpp" />
+    <ClCompile Include="..\datadir.cpp" />
+    <ClCompile Include="..\gameending.cpp" />
+    <ClCompile Include="..\thing_monsters.cpp" />
+    <ClCompile Include="..\win32\dpiscaling.cpp" />
+    <ClCompile Include="..\win32\winmain.cpp" />
+    <ClCompile Include="..\sdl\djgraph.cpp" />
+    <ClCompile Include="..\sdl\djinput.cpp" />
+    <ClCompile Include="..\sdl\djsound.cpp" />
+    <ClCompile Include="..\sdl\djtime.cpp" />
+    <ClCompile Include="..\djfile.cpp" />
+    <ClCompile Include="..\djfonts.cpp" />
+    <ClCompile Include="..\djimage.cpp" />
+    <ClCompile Include="..\djlog.cpp" />
+    <ClCompile Include="..\djstring.cpp" />
+    <ClCompile Include="..\djtypes.cpp" />
+    <ClCompile Include="..\ed.cpp" />
+    <ClCompile Include="..\ed_common.cpp" />
+    <ClCompile Include="..\ed_DrawBoxContents.cpp" />
+    <ClCompile Include="..\ed_lvled.cpp" />
+    <ClCompile Include="..\ed_macros.cpp" />
+    <ClCompile Include="..\ed_spred.cpp" />
+    <ClCompile Include="..\block.cpp" />
+    <ClCompile Include="..\bullet.cpp" />
+    <ClCompile Include="..\credits.cpp" />
+    <ClCompile Include="..\effect_viewportshadow.cpp" />
+    <ClCompile Include="..\game.cpp" />
+    <ClCompile Include="..\graph.cpp" />
+    <ClCompile Include="..\hero.cpp" />
+    <ClCompile Include="..\hiscores.cpp" />
+    <ClCompile Include="..\instructions.cpp" />
+    <ClCompile Include="..\inventory.cpp" />
+    <ClCompile Include="..\keys.cpp" />
+    <ClCompile Include="..\level.cpp" />
+    <ClCompile Include="..\m_misc.cpp" />
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\menu.cpp" />
+    <ClCompile Include="..\mission.cpp" />
+    <ClCompile Include="..\mixins.cpp" />
+    <ClCompile Include="..\settings.cpp" />
+    <ClCompile Include="..\sys_error.cpp" />
+    <ClCompile Include="..\sys_log.cpp" />
+    <ClCompile Include="..\thing.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\config.h" />
+    <ClInclude Include="..\console.h" />
+    <ClInclude Include="..\djfile.h" />
+    <ClInclude Include="..\djfonts.h" />
+    <ClInclude Include="..\djgamelib.h" />
+    <ClInclude Include="..\djgraph.h" />
+    <ClInclude Include="..\djimage.h" />
+    <ClInclude Include="..\djinput.h" />
+    <ClInclude Include="..\djlog.h" />
+    <ClInclude Include="..\djsound.h" />
+    <ClInclude Include="..\djstring.h" />
+    <ClInclude Include="..\djtime.h" />
+    <ClInclude Include="..\djtypes.h" />
+    <ClInclude Include="..\ed.h" />
+    <ClInclude Include="..\ed_common.h" />
+    <ClInclude Include="..\ed_DrawBoxContents.h" />
+    <ClInclude Include="..\ed_lvled.h" />
+    <ClInclude Include="..\ed_macros.h" />
+    <ClInclude Include="..\ed_spred.h" />
+    <ClInclude Include="..\block.h" />
+    <ClInclude Include="..\bullet.h" />
+    <ClInclude Include="..\credits.h" />
+    <ClInclude Include="..\datadir.h" />
+    <ClInclude Include="..\effect_viewportshadow.h" />
+    <ClInclude Include="..\game.h" />
+    <ClInclude Include="..\graph.h" />
+    <ClInclude Include="..\hero.h" />
+    <ClInclude Include="..\hiscores.h" />
+    <ClInclude Include="..\instructions.h" />
+    <ClInclude Include="..\inventory.h" />
+    <ClInclude Include="..\keys.h" />
+    <ClInclude Include="..\level.h" />
+    <ClInclude Include="..\m_aliases.h" />
+    <ClInclude Include="..\m_misc.h" />
+    <ClInclude Include="..\menu.h" />
+    <ClInclude Include="..\mission.h" />
+    <ClInclude Include="..\mixins.h" />
+    <ClInclude Include="..\settings.h" />
+    <ClInclude Include="..\sys_defs.h" />
+    <ClInclude Include="..\sys_error.h" />
+    <ClInclude Include="..\sys_log.h" />
+    <ClInclude Include="..\thing.h" />
+    <ClInclude Include="..\thing_monsters.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vcDave.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="application_icon.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
