@@ -33,7 +33,7 @@ void djSetDataDir(const char* szDataDir)
 	else
 		g_sDataDir = szDataDir;
 
-	if (!g_sDataDir.empty() && g_sDataDir.back() != '/')
+	if (!g_sDataDir.empty() && g_sDataDir.back() != '/' && g_sDataDir.back() != ':')
 		g_sDataDir += '/'; // add trailing slash if not present?
 }
 

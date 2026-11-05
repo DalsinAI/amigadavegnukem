@@ -1,0 +1,97 @@
+# Dave Gnukem for AmigaOS 3.x, 68040/68060 + FPU, on OpenGPU's SDL 2.
+#
+#   make -f amiga/Makefile.amigaos -j2 \
+#        STOVE=/path/to/openamigagcc-16.2.0-open4 \
+#        NDK=/path/to/OpenNDK/Include_H SDL2KIT=/path/to/opengpu-sdk
+#
+# STOVE is GFOpenAmigaGCC 16.2.0-open4 or later. SDL2KIT is the OpenGPU
+# developer kit: libSDL2.a and libSDL2_mixer.a, the program's halves of
+# LIBS:OpenGPU/SDL2.module and SDL2_mixer.module (screen, keyboard,
+# joystick, sound, and the OGG music). The game's data (the gnukem_data
+# repository, checked out at its tag 1.0.3 in data/) goes into the drawer.
+# Output: dist/DaveGnukem/ (the program, data/, userdata/, ReadMe, the
+# licences) and dist/DaveGnukem.info.
+
+STOVE   ?= $(HOME)/CradleLab/toolchain/openamigagcc-16.2.0-open4-x86_64-linux
+NDK     ?= $(HOME)/CradleLab/gfopensdk/OpenNDK/Include_H
+SDL2KIT ?= /mnt/amigachrome/team2/deps/opengpu-sdk
+CC      = $(STOVE)/bin/m68k-amigaos-gcc
+CXX     = $(STOVE)/bin/m68k-amigaos-g++
+STRIP   = $(STOVE)/bin/m68k-amigaos-strip
+CPU     ?= -m68040 -m68881
+# -fno-tree-loop-distribute-patterns: GCC 16's loop miscompile (the kit's
+# sdl2-config gives it for GCC 16 too).
+OPT     ?= -O2 -fomit-frame-pointer -fno-tree-loop-distribute-patterns
+
+# As upstream's Makefile: DATA_DIR (with its trailing slash) and VERSION.
+V_NUM   = 1.0.3
+V_DATE  = 29 Nov 2022
+DEFS    = -D__amigaos__ -DDATA_DIR=\"PROGDIR:data/\" \
+          -DVERSION=\"'v$(V_NUM) - $(V_DATE)'\"
+INC     = -I$(SDL2KIT)/include/SDL2 -I$(SDL2KIT)/include
+COMMON  = -noixemul $(OPT) $(CPU) $(DEFS)
+# Upstream's files build with upstream's own -std=c++14 -Wall; the port's
+# own files in amiga/ with -Wall -Wextra.
+CXXFLAGS = $(COMMON) -std=c++14 -Wall $(INC)
+CFLAGS   = $(COMMON) -Wall -Wextra -I$(NDK)
+LDFLAGS = -noixemul $(CPU)
+LIBS    = -L$(SDL2KIT)/lib -lSDL2_mixer -lSDL2 -lm
+BUILD   = build/amigaos
+OBJDIR  = $(BUILD)/obj
+DIST    = dist
+OUT     = $(DIST)/DaveGnukem
+PROG    = DaveGnukem
+
+# As upstream's Makefile: every .cpp under src/ (win32/ builds to nothing
+# off Windows).
+SRC     = $(sort $(shell find src -iname '*.cpp' -type f))
+OBJS    = $(SRC:%.cpp=$(OBJDIR)/%.o) \
+          $(OBJDIR)/amiga/amiga_screens.o $(OBJDIR)/amiga/stack.o \
+          $(OBJDIR)/amiga/pthread_stubs.o
+
+ICONS   = $(wildcard amiga/icons/*.info)
+# data/ as upstream's 'make install' copies it, without the Windows icon
+# folder and the repository's own README (it goes in as Credits-data).
+DATAITEMS = $(filter-out data/icon data/README.md,$(wildcard data/*))
+
+all: $(OUT)/$(PROG) package
+
+$(BUILD)/$(PROG).debug: $(OBJS)
+	@mkdir -p $(dir $@)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+
+$(OUT)/$(PROG): $(BUILD)/$(PROG).debug | $(OUT)
+	$(STRIP) -o $@ $<
+
+package: $(OUT)/$(PROG) $(ICONS) AMIGA_PORT.md COPYING MIT-LICENSE.txt README.md data/missions.txt
+	rm -rf $(OUT)/data
+	mkdir -p $(OUT)/data $(OUT)/userdata
+	cp -R $(DATAITEMS) $(OUT)/data/
+	cp AMIGA_PORT.md $(OUT)/ReadMe
+	cp README.md $(OUT)/README-gnukem
+	cp data/README.md $(OUT)/Credits-data
+	cp COPYING $(OUT)/COPYING.txt
+	cp MIT-LICENSE.txt $(OUT)/MIT-LICENSE.txt
+	cp amiga/icons/DaveGnukem.info amiga/icons/ReadMe.info \
+	   amiga/icons/README-gnukem.info amiga/icons/Credits-data.info \
+	   amiga/icons/COPYING.txt.info amiga/icons/MIT-LICENSE.txt.info $(OUT)/
+	cd $(OUT) && find . -mindepth 1 -type d | while read d; do cp $(CURDIR)/amiga/icons/Data.info "$$d.info"; done
+	cp amiga/icons/DaveGnukem-drawer.info $(DIST)/DaveGnukem.info
+
+$(OBJDIR)/amiga/%.o: amiga/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(OBJDIR)/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+objs: $(OBJS)
+
+$(OUT):
+	mkdir -p $@
+
+clean:
+	rm -rf $(BUILD)
+
+.PHONY: all package objs clean

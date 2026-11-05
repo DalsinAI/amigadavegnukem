@@ -277,11 +277,20 @@ int djImage::LoadTGA( const char * szFilename )
 					int iOffset = (bFlipY?(nHeight-i-1):i)*Pitch();
 					for ( unsigned int j=0; j<nWidth; j++ )
 					{
+#if defined(__amigaos__) && defined(__BYTE_ORDER__) && __BYTE_ORDER__==__ORDER_BIG_ENDIAN__
+						// Big-endian: keep each pixel the native 32-bit value 0xAARRGGBB, as it is
+						// on little-endian machines, so GetPixel/PutPixel and the surface masks agree
+						m_pData[iOffset + j*4+0] = 0xFF;
+						m_pData[iOffset + j*4+1] = pBuf[j*3+2];
+						m_pData[iOffset + j*4+2] = pBuf[j*3+1];
+						m_pData[iOffset + j*4+3] = pBuf[j*3+0];
+#else
 						// A,B,G,R
 						m_pData[iOffset + j*4+0] = pBuf[j*3+0];
 						m_pData[iOffset + j*4+1] = pBuf[j*3+1];
 						m_pData[iOffset + j*4+2] = pBuf[j*3+2];
 						m_pData[iOffset + j*4+3] = 0xFF;
+#endif
 					}
 				}
 				djDELV(pBuf);
@@ -307,10 +316,18 @@ int djImage::LoadTGA( const char * szFilename )
 						// FIXME: Interesting "problem" .. it seems the VNC server
 						// inverts the ordering of some of this stuff! So while doing
 						// the remote thing I had everything confused!
+#if defined(__amigaos__) && defined(__BYTE_ORDER__) && __BYTE_ORDER__==__ORDER_BIG_ENDIAN__
+						// Big-endian: B,G,R,A in the file becomes the native value 0xAARRGGBB
+						m_pData[iOffset + j*4+0] = pBuf[j*4+3];
+						m_pData[iOffset + j*4+1] = pBuf[j*4+2];
+						m_pData[iOffset + j*4+2] = pBuf[j*4+1];
+						m_pData[iOffset + j*4+3] = pBuf[j*4+0];
+#else
 						m_pData[iOffset + j*4+0] = pBuf[j*4+0];
 						m_pData[iOffset + j*4+1] = pBuf[j*4+1];
 						m_pData[iOffset + j*4+2] = pBuf[j*4+2];
 						m_pData[iOffset + j*4+3] = pBuf[j*4+3];
+#endif
 					}
 //					memcpy(m_pData+(bFlipY?(nHeight-i-1):i)*Pitch(), pBuf, nWidth*4);
 				}

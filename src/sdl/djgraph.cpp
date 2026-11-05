@@ -180,7 +180,7 @@ void djgFlip( djVisual * pVisDest, djVisual * pVisSrc, bool bScaleView )
 #endif
 
 		//fixme this won't work bigendian
-		#if SDL_BYTEORDER==SDL_BIG_ENDIAN
+		#if SDL_BYTEORDER==SDL_BIG_ENDIAN && !defined(__amigaos__)
 		// Not yet supported for big-endian platforms (dj2019-06)
 		if (false)
 		#else
@@ -757,9 +757,10 @@ void* djCreateImageHWSurface( djImage* pImage/*, djVisual* pVisDisplayBuffer*/ )
 		32,
 		pImage->Pitch(),
 		// R,G,B,A masks (dj2018-03 specify different masks here on PPC etc. - see https://github.com/davidjoffe/dave_gnukem/issues/100 - thanks to @BeWorld2018 for report and patch suggestion)
-		#if SDL_BYTEORDER==SDL_BIG_ENDIAN
+		#if SDL_BYTEORDER==SDL_BIG_ENDIAN && !defined(__amigaos__)
 		0x0000FF00, 0X00FF0000, 0xFF000000, 0x000000FF
 		#else
+		// (Amiga: the TGA loader keeps pixels as native 0xAARRGGBB values on big-endian too)
 		0xFF0000,
 		0xFF00,
 		0xFF,

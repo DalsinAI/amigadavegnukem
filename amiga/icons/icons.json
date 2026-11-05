@@ -1,0 +1,40 @@
+{
+  "about": "The Workbench icons of the DaveGnukem drawer: python3 AMICRADLE/scripts/port_icons.py amiga/icons/icons.json --out amiga/icons (DalsinAI/amicradle). The art is the game's own program icon (data/icon/application_icon.ico, its 256x256 image scaled to 128x128). DaveGnukem-drawer.info is the drawer's own icon, DaveGnukem.info beside the drawer; it has its own name here so as not to meet the program's DaveGnukem.info. Data.info is the icon of every data subdrawer and of userdata (the Makefile copies it to each name).",
+  "drawer": {
+    "name": "DaveGnukem",
+    "file": "DaveGnukem-drawer.info"
+  },
+  "badge": "art/davegnukem.png",
+  "icons": [
+    {
+      "file": "DaveGnukem.info",
+      "kind": "tool",
+      "stack": 262144
+    },
+    {
+      "file": "ReadMe.info",
+      "kind": "readme"
+    },
+    {
+      "file": "README-gnukem.info",
+      "kind": "readme"
+    },
+    {
+      "file": "Credits-data.info",
+      "kind": "readme"
+    },
+    {
+      "file": "COPYING.txt.info",
+      "kind": "readme"
+    },
+    {
+      "file": "MIT-LICENSE.txt.info",
+      "kind": "readme"
+    },
+    {
+      "file": "Data.info",
+      "kind": "drawer",
+      "type": "drawer"
+    }
+  ]
+}
