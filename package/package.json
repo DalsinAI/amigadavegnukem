@@ -1,0 +1,57 @@
+{
+  "drawer": "DaveGnukem",
+  "drawer_icon": "amiga/icons/DaveGnukem-drawer.info",
+  "archive": "davegnukem-{version}-68040",
+  "members": [
+    {
+      "name": "DaveGnukem",
+      "build": "DaveGnukem",
+      "check": "executable_sha256"
+    },
+    {
+      "name": "",
+      "tar": "drawer.tar"
+    }
+  ],
+  "aminet": [
+    [
+      "Short",
+      "Dave Gnukem, a Duke Nukem 1 style platformer, 68040+FPU"
+    ],
+    [
+      "Author",
+      "David Joffe (Dave Gnukem); Amiga port: AmiCradle Team"
+    ],
+    [
+      "Uploader",
+      "AmiCradle Team"
+    ],
+    [
+      "Type",
+      "game/jump"
+    ],
+    [
+      "Version",
+      "{version}"
+    ],
+    [
+      "Requires",
+      "AmigaOS 3.2, 68040/68060 with FPU, RTG, GFOpenGPU (SDL2.module, SDL2_mixer.module)"
+    ],
+    [
+      "Architecture",
+      "m68k-amigaos >= 3.0"
+    ]
+  ],
+  "root": [
+    {
+      "name": "Install-DaveGnukem",
+      "repo": "package/installer/Install-DaveGnukem",
+      "installer": true
+    },
+    {
+      "name": "Install-DaveGnukem.info",
+      "repo": "package/installer/Install-DaveGnukem.info"
+    }
+  ]
+}

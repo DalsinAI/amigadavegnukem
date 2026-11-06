@@ -1,0 +1,13 @@
+{
+  "name": "Dave Gnukem",
+  "version": "1.0.3-amiga1",
+  "drawer": "DaveGnukem",
+  "program": "DaveGnukem",
+  "cpu": "68040",
+  "fpu": true,
+  "space": 30000000,
+  "modules": ["SDL2.module", "SDL2_mixer.module"],
+  "keep": ["userdata"],
+  "parent": "Work:Games",
+  "badge": "../amiga/icons/art/davegnukem.png"
+}
