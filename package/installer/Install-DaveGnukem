@@ -1,10 +1,10 @@
-; $VER: Install-DaveGnukem 1.0.3-amiga1 (6.11.2026)
+; $VER: Install-DaveGnukem 1.0.3-amiga2 (7.11.2026)
 ; The Amiga Installer script for Dave Gnukem, an AmiCradle game port.
 ; Made by amicradle scripts/port_installer.py: change the spec, not this file.
 ; Run it from its icon, beside the DaveGnukem drawer where the archive was unpacked.
 
 (set @app-name "Dave Gnukem")
-(set #version "1.0.3-amiga1")
+(set #version "1.0.3-amiga2")
 (set #drawer "DaveGnukem")
 (set #program "DaveGnukem")
 (set #space 29297)  ; KB
@@ -30,7 +30,7 @@
 (if (<> (exists (tackon #from #program) (noreq)) 1)
     (abort "The DaveGnukem drawer has no DaveGnukem in it. Unpack the whole archive again."))
 
-(welcome "This installs Dave Gnukem 1.0.3-amiga1 for AmigaOS 3.2 on a 68040, 68060 or 68080 with an FPU.")
+(welcome "This installs Dave Gnukem 1.0.3-amiga2 for AmigaOS 3.2 on a 68040, 68060 or 68080 with an FPU.")
 
 ; where: the parent drawer
 (set #default
@@ -105,7 +105,7 @@
 (complete 100)
 (if @pretend
     (message (cat "Pretend: nothing was copied or changed. Dave Gnukem would have gone in " #dest "."))
-    (message (cat "Dave Gnukem 1.0.3-amiga1 is installed in " #dest "."
+    (message (cat "Dave Gnukem 1.0.3-amiga2 is installed in " #dest "."
                   "\n\nTo start it, open the DaveGnukem drawer and double-click the DaveGnukem icon."
                   (if (= #kept "") "" (cat "\n\nLeft as they were: " #kept ".")))))
 (exit (quiet))
