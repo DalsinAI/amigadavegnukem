@@ -68,6 +68,7 @@ package: $(OUT)/$(PROG) $(ICONS) AMIGA_PORT.md COPYING MIT-LICENSE.txt README.md
 	mkdir -p $(OUT)/data $(OUT)/userdata
 	cp -R $(DATAITEMS) $(OUT)/data/
 	cp AMIGA_PORT.md $(OUT)/ReadMe
+	cp amiga/Controls $(OUT)/Controls
 	cp README.md $(OUT)/README-gnukem
 	cp data/README.md $(OUT)/Credits-data
 	cp COPYING $(OUT)/COPYING.txt
