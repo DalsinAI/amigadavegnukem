@@ -101,8 +101,8 @@ empty userdata/, and an icon for each) and dist/DaveGnukem.info. Flags:
 -fno-tree-loop-distribute-patterns; upstream's files and amiga/ build with
 no warnings.
 
-Icons: amiga/icons/icons.json, from the game's own icon
-(data/icon/application_icon.ico):
+Icons: amiga/icons/icons.json, from our own GlowIcon art
+(amiga/icons/art/davegnukem.svg):
 
     python3 AMICRADLE/scripts/port_icons.py amiga/icons/icons.json --out amiga/icons
 
